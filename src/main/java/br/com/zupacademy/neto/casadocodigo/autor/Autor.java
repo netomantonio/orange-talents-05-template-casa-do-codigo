@@ -20,6 +20,11 @@ public class Autor {
 	private @NotBlank @Email String email;
 	private @NotBlank @Size(max = 400) String descricao;
 	private @CreationTimestamp LocalDateTime criadoEm;
+	
+	@Deprecated
+	public Autor() {
+		
+	}
 
 	public Autor(@NotBlank String nome, @NotBlank @Email String email, @NotBlank @Size(max = 400) String descricao) {
 		this.nome = nome;
@@ -32,6 +37,10 @@ public class Autor {
 	public String toString() {
 		return "Autor [id=" + id + ", nome=" + nome + ", email=" + email + ", descricao=" + descricao + ", criadoEm="
 				+ criadoEm + "]";
+	}
+
+	public String getEmail() {
+		return this.email;
 	}
 
 }

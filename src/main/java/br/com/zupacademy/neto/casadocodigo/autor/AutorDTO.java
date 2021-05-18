@@ -10,6 +10,7 @@ public class AutorDTO {
 	private String nome;
 	@NotBlank
 	@Email
+	@EmailDuplicado(message = "Email já cadastrado")
 	private String email;
 	@NotBlank
 	@Size(max = 400)
