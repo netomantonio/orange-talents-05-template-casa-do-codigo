@@ -1,12 +1,11 @@
 package br.com.zupacademy.neto.casadocodigo.autor;
 
-import java.util.Optional;
-
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +19,7 @@ public class AutorController {
 	
 	@PostMapping
 	@Transactional
-	public void cadastrar(@Validated AutorDTO autorDTO ) {
+	public void cadastrar(@RequestBody @Valid AutorDTO autorDTO ) {
 		Autor autorNovo = autorDTO.toModel();		
 		autorRepository.save(autorNovo);
 	}
