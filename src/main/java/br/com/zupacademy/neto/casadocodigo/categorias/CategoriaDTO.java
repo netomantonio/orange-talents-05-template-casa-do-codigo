@@ -4,13 +4,13 @@ import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
-import br.com.zupacademy.neto.casadocodigo.UniqueValidator;
+import br.com.zupacademy.neto.casadocodigo.Unique;
 
 
 public class CategoriaDTO {
 	
 	@NotBlank
-	@UniqueValidator
+	@Unique(domainClass = Categoria.class, fieldName = "nome")
 	private String nome;
 	
 	

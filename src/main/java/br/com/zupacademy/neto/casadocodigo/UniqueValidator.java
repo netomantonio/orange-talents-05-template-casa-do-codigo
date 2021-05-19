@@ -1,23 +1,45 @@
 package br.com.zupacademy.neto.casadocodigo;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import java.util.List;
+import java.util.Optional;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 
-import javax.validation.Constraint;
-import javax.validation.Payload;
+import org.springframework.util.Assert;
 
-@Target({ FIELD })
-@Retention(RUNTIME)
-@Constraint(validatedBy = UniqueValidatorValue.class)
-public @interface UniqueValidator {
+public class UniqueValidator implements ConstraintValidator<Unique, Object> {
+	private String domainAttribute;
+	private Class<?> klass;
 	
-	String message() default "Já cadastrado";
-	Class<?>[] groups() default {};
+	@PersistenceContext
+	private EntityManager manager;
 	
-	Class<? extends Payload>[] payload() default {};
+//	@Autowired
+//	private AutorRepository autorRepository;
+//	
+//	@Autowired
+//	private CategoriaRepository categoriaRepository;
 	
-	String value() default "";
+	@Override
+	public void initialize(Unique params) {
+		domainAttribute = params.fieldName();
+		klass = params.domainClass();
+	}
+
+	@Override
+	public boolean isValid(Object value, ConstraintValidatorContext context) {
+		Query query = manager.createQuery(
+				"select 1 from "+ klass.getName()+" where "+domainAttribute+"=:value"
+				);
+		query.setParameter("value", value);
+		List<?> list = query.getResultList();
+		Assert.state(list.size() <= 1, "Foi encontrado mais de um "+klass+" com o atributo "+domainAttribute+" = "+value);
+		
+		return list.isEmpty();
+	}
+	
 }

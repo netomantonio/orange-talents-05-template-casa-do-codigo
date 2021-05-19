@@ -4,7 +4,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import br.com.zupacademy.neto.casadocodigo.UniqueValidator;
+import br.com.zupacademy.neto.casadocodigo.Unique;
+
 
 public class AutorDTO {
 	
@@ -12,7 +13,7 @@ public class AutorDTO {
 	private String nome;
 	@NotBlank(message = "Ja foi avisado que tem que preencher tudo zé oreia")
 	@Email(message = "Bota o email cabeça de bagre")
-	@UniqueValidator
+	@Unique(domainClass = Autor.class, fieldName = "email")
 	private String email;
 	@NotBlank
 	@Size(max = 400, min = 20)
