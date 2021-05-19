@@ -1,4 +1,4 @@
-package br.com.zupacademy.neto.casadocodigo.autor;
+package br.com.zupacademy.neto.casadocodigo;
 
 public class FieldErrorOutputDto {
 

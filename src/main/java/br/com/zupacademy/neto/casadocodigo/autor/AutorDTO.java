@@ -4,19 +4,21 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import br.com.zupacademy.neto.casadocodigo.UniqueValidator;
+
 public class AutorDTO {
 	
-	@NotBlank
+	@NotBlank(message = "Nome obrigatoio")
 	private String nome;
-	@NotBlank
-	@Email
-	@EmailDuplicado(message = "Email já cadastrado")
+	@NotBlank(message = "Ja foi avisado que tem que preencher tudo zé oreia")
+	@Email(message = "Bota o email cabeça de bagre")
+	@UniqueValidator
 	private String email;
 	@NotBlank
-	@Size(max = 400)
+	@Size(max = 400, min = 20)
 	private String descricao;
 	
-	public AutorDTO(@NotBlank String nome, @NotBlank @Email String email, @NotBlank @Size(max = 400) String descricao) {
+	public AutorDTO(@NotBlank(message = "Nome obrigatório") String nome, @NotBlank @Email String email, @NotBlank @Size(max = 400) String descricao) {
 		super();
 		this.nome = nome;
 		this.email = email;

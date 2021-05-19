@@ -1,4 +1,4 @@
-package br.com.zupacademy.neto.casadocodigo.autor;
+package br.com.zupacademy.neto.casadocodigo;
 
 import java.util.ArrayList;
 import java.util.List;

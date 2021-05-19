@@ -1,4 +1,4 @@
-package br.com.zupacademy.neto.casadocodigo.autor;
+package br.com.zupacademy.neto.casadocodigo;
 
 import java.util.List;
 
@@ -21,11 +21,6 @@ public class ValidacaoErrosHandler {
 
 	@Autowired
 	private MessageSource messageSource;
-	
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		
-	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
