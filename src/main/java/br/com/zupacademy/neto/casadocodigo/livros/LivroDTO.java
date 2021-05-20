@@ -11,6 +11,7 @@ import org.hibernate.validator.constraints.ISBN;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 public class LivroDTO {
 
@@ -32,7 +33,7 @@ public class LivroDTO {
     @Min(100)
     private Integer numeroPaginas;
 
-    @ISBN
+//    @ISBN
     @Unique(domainClass = Livro.class, fieldName = "isbn")
     private String isbn;
 
@@ -45,6 +46,7 @@ public class LivroDTO {
 
     @Positive @NotNull @ExisteID(domainClass = Autor.class)
     private Integer autor;
+
 
     @JsonCreator
     public LivroDTO(String titulo, String resumo, String sumario, BigDecimal preco, Integer numeroPaginas, String isbn, LocalDate dataPublicacao, Integer categoria, Integer autor) {

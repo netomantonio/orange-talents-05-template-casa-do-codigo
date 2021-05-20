@@ -14,7 +14,7 @@ import javax.validation.Payload;
 @Constraint(validatedBy = UniqueValidator.class)
 public @interface Unique {
 
-	String message() default "Já cadastrado";
+	String message() default "";
 
 	Class<?>[] groups() default {};
 

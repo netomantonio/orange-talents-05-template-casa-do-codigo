@@ -29,7 +29,6 @@ public class ExisteIDValidator implements ConstraintValidator<ExisteID, Object> 
 				);
 		query.setParameter("value", value);
 		List<?> list = query.getResultList();
-		Assert.state(list.size() <= 1, "Foi encontrado mais de um "+klass+" com o atributo "+domainAttribute+" = "+value);
 
 		return !list.isEmpty();
 	}

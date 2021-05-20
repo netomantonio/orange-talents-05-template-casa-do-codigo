@@ -2,15 +2,15 @@ package br.com.zupacademy.neto.casadocodigo.livros;
 
 import br.com.zupacademy.neto.casadocodigo.autor.Autor;
 import br.com.zupacademy.neto.casadocodigo.categorias.Categoria;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/livros")
@@ -29,6 +29,17 @@ public class LivrosController{
 		Livro novoLivro = livroDto.toModel(autor, categoria);
 
 		em.persist(novoLivro);
+	}
+
+	@GetMapping
+	@Transactional
+	public List<LivroDetalhesDTO> listar(){
+		List<Livro> livros = em.createQuery("select l from Livro l").getResultList();
+		List<LivroDetalhesDTO> lista = new ArrayList<>();
+		for (Livro livro : livros) {
+			lista.add(new LivroDetalhesDTO(livro.getId(), livro.getTitulo()));
+		}
+		return lista;
 	}
 
 }

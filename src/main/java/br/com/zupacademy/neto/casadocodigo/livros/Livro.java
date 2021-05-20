@@ -3,18 +3,17 @@ package br.com.zupacademy.neto.casadocodigo.livros;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.ISBN;
 
 import br.com.zupacademy.neto.casadocodigo.autor.Autor;
 import br.com.zupacademy.neto.casadocodigo.categorias.Categoria;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
-public class Livro {
+public class Livro implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +37,7 @@ public class Livro {
 	@Positive
 	private Integer numeroPaginas;
 	
-	@ISBN
+//	@ISBN
 	@Column(unique = true)
 	private String isbn;
 
@@ -52,6 +51,11 @@ public class Livro {
 	@ManyToOne
 	@NotNull
 	private Autor autor;
+
+	@Deprecated
+	public Livro (){
+
+	}
 
 	public Livro(String titulo, String resumo, String sumario, BigDecimal preco, Integer numeroPaginas, @ISBN String isbn, LocalDate dataPublicacao, Autor autor, Categoria categoria) {
 				this.titulo = titulo;
@@ -71,5 +75,11 @@ public class Livro {
 				+ preco + ", numeroPaginas=" + numeroPaginas + ", isbn=" + isbn + ", dataPublicacao=" + dataPublicacao
 				+ ", categoria=" + categoria + ", autor=" + autor + "]";
 	}
+	public Integer getId(){
+		return this.id;
+	}
 
+	public String getTitulo(){
+		return this.titulo;
+	}
 }
