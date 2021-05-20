@@ -2,10 +2,7 @@ package br.com.zupacademy.neto.casadocodigo.autor;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -17,7 +14,7 @@ public class Autor {
 
 	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
 	private @NotBlank String nome;
-	private @NotBlank @Email String email;
+	private @NotBlank @Email @Column(unique = true) String email;
 	private @NotBlank @Size(max = 400) String descricao;
 	private @CreationTimestamp LocalDateTime criadoEm;
 

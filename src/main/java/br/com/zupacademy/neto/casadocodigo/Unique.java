@@ -20,7 +20,7 @@ public @interface Unique {
 
 	Class<? extends Payload>[] payload() default {};
 
-	String fieldName() default "";
+	String fieldName();
 
 	Class<?> domainClass();
 }
