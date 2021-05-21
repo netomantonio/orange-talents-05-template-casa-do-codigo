@@ -2,10 +2,9 @@ package br.com.zupacademy.neto.casadocodigo.categorias;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 
 @Entity
-public class Categoria implements Serializable {
+public class Categoria {
 	
 	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
 	private @NotBlank @Column(unique = true) String nome;
@@ -23,5 +22,12 @@ public class Categoria implements Serializable {
 	public String toString() {
 		return "Categoria [nome=" + nome + "]";
 	}
-	
+
+	public Integer getId() {
+		return id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
 }

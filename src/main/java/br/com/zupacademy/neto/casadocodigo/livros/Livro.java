@@ -8,12 +8,11 @@ import org.hibernate.validator.constraints.ISBN;
 import br.com.zupacademy.neto.casadocodigo.autor.Autor;
 import br.com.zupacademy.neto.casadocodigo.categorias.Categoria;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-public class Livro implements Serializable {
+public class Livro {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -81,5 +80,37 @@ public class Livro implements Serializable {
 
 	public String getTitulo(){
 		return this.titulo;
+	}
+
+	public String getResumo() {
+		return resumo;
+	}
+
+	public String getSumario() {
+		return sumario;
+	}
+
+	public BigDecimal getPreco() {
+		return preco;
+	}
+
+	public Integer getNumeroPaginas() {
+		return numeroPaginas;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public LocalDate getDataPublicacao() {
+		return dataPublicacao;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public Autor getAutor() {
+		return autor;
 	}
 }

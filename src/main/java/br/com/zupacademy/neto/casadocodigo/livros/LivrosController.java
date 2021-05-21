@@ -2,6 +2,8 @@ package br.com.zupacademy.neto.casadocodigo.livros;
 
 import br.com.zupacademy.neto.casadocodigo.autor.Autor;
 import br.com.zupacademy.neto.casadocodigo.categorias.Categoria;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,35 +13,53 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/livros")
-public class LivrosController{
+public class LivrosController {
 
-	@PersistenceContext
-	EntityManager em;
+    @PersistenceContext
+    EntityManager em;
 
-	@PostMapping
-	@Transactional
-	public void cadastrar(@RequestBody @Valid LivroDTO livroDto){
+    @Autowired
+    LivroRepository liRepo;
 
-		Autor autor = em.find(Autor.class, livroDto.getAutor());
-		Categoria categoria = em.find(Categoria.class, livroDto.getCategoria());
+    @PostMapping
+    @Transactional
+    public void cadastrar(@RequestBody @Valid LivroDTO livroDto) {
 
-		Livro novoLivro = livroDto.toModel(autor, categoria);
+        Autor autor = em.find(Autor.class, livroDto.getAutor());
+        Categoria categoria = em.find(Categoria.class, livroDto.getCategoria());
 
-		em.persist(novoLivro);
-	}
+        Livro novoLivro = livroDto.toModel(autor, categoria);
 
-	@GetMapping
-	@Transactional
-	public List<LivroDetalhesDTO> listar(){
-		List<Livro> livros = em.createQuery("select l from Livro l").getResultList();
-		List<LivroDetalhesDTO> lista = new ArrayList<>();
-		for (Livro livro : livros) {
-			lista.add(new LivroDetalhesDTO(livro.getId(), livro.getTitulo()));
-		}
-		return lista;
-	}
+        em.persist(novoLivro);
+    }
+
+    @GetMapping
+    @Transactional
+    public List<LivrosDetalhesDTO> listar() {
+        List<Livro> livros = em.createQuery("select l from Livro l").getResultList();
+        List<LivrosDetalhesDTO> lista = new ArrayList<>();
+        for (Livro livro : livros) {
+            lista.add(new LivrosDetalhesDTO(livro));
+        }
+        return lista;
+    }
+
+    @GetMapping(value = "/{id}")
+    @Transactional
+    public ResponseEntity<?> detalhar(@PathVariable("id") Integer id) {
+
+        Optional<Livro> livroOptional = liRepo.findById(id);
+
+        if (!livroOptional.isPresent()) {
+            return new ResponseEntity<>("Não existe livro com o id="+id+" em nosso sistema",HttpStatus.NOT_FOUND);
+        }
+        DetalhesLivroDTO livroDetalhado = new DetalhesLivroDTO(livroOptional.get());
+        return new ResponseEntity<DetalhesLivroDTO>(livroDetalhado, HttpStatus.OK);
+
+    }
 
 }

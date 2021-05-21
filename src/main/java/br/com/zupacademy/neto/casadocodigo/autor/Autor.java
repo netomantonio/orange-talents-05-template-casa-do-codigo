@@ -1,6 +1,5 @@
 package br.com.zupacademy.neto.casadocodigo.autor;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.*;
@@ -8,11 +7,10 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-public class Autor implements Serializable {
+public class Autor {
 
 	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
 	private @NotBlank String nome;
@@ -42,4 +40,15 @@ public class Autor implements Serializable {
 		return this.email;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
 }

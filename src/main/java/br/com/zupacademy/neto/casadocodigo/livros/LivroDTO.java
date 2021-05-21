@@ -11,7 +11,6 @@ import org.hibernate.validator.constraints.ISBN;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 public class LivroDTO {
 
