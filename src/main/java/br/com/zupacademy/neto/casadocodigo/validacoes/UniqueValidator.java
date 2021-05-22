@@ -1,4 +1,6 @@
-package br.com.zupacademy.neto.casadocodigo;
+package br.com.zupacademy.neto.casadocodigo.validacoes;
+
+import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -7,7 +9,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
-public class ExisteIDValidator implements ConstraintValidator<ExisteID, Object> {
+public class UniqueValidator implements ConstraintValidator<Unique, Object> {
 	private String domainAttribute;
 	private Class<?> klass;
 
@@ -15,7 +17,7 @@ public class ExisteIDValidator implements ConstraintValidator<ExisteID, Object> 
 	private EntityManager manager;
 
 	@Override
-	public void initialize(ExisteID params) {
+	public void initialize(Unique params) {
 		domainAttribute = params.fieldName();
 		klass = params.domainClass();
 	}
@@ -27,7 +29,8 @@ public class ExisteIDValidator implements ConstraintValidator<ExisteID, Object> 
 				);
 		query.setParameter("value", value);
 		List<?> list = query.getResultList();
+		Assert.state(list.size() <= 1, "Foi encontrado mais de um "+klass+" com o atributo "+domainAttribute+" = "+value);
 
-		return !list.isEmpty();
+		return list.isEmpty();
 	}
 }

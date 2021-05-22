@@ -2,7 +2,6 @@ package br.com.zupacademy.neto.casadocodigo.livros;
 
 import br.com.zupacademy.neto.casadocodigo.autor.Autor;
 import br.com.zupacademy.neto.casadocodigo.categorias.Categoria;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,6 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/livros")
@@ -21,9 +19,6 @@ public class LivrosController {
 
     @PersistenceContext
     EntityManager em;
-
-    @Autowired
-    LivroRepository liRepo;
 
     @PostMapping
     @Transactional
@@ -52,12 +47,12 @@ public class LivrosController {
     @Transactional
     public ResponseEntity<?> detalhar(@PathVariable("id") Integer id) {
 
-        Optional<Livro> livroOptional = liRepo.findById(id);
+        Livro novoLivro = em.find(Livro.class, id);
 
-        if (!livroOptional.isPresent()) {
+        if (novoLivro == null){
             return new ResponseEntity<>("Não existe livro com o id="+id+" em nosso sistema",HttpStatus.NOT_FOUND);
         }
-        DetalhesLivroDTO livroDetalhado = new DetalhesLivroDTO(livroOptional.get());
+        DetalhesLivroDTO livroDetalhado = new DetalhesLivroDTO(novoLivro);
         return new ResponseEntity<DetalhesLivroDTO>(livroDetalhado, HttpStatus.OK);
 
     }

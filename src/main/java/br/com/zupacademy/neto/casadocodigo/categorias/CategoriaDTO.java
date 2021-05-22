@@ -4,7 +4,7 @@ import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
-import br.com.zupacademy.neto.casadocodigo.Unique;
+import br.com.zupacademy.neto.casadocodigo.validacoes.Unique;
 
 
 public class CategoriaDTO {

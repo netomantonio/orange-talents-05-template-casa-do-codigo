@@ -4,7 +4,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import br.com.zupacademy.neto.casadocodigo.Unique;
+import br.com.zupacademy.neto.casadocodigo.validacoes.Unique;
 
 
 public class AutorDTO {

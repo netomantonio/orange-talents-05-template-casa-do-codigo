@@ -1,6 +1,6 @@
 package br.com.zupacademy.neto.casadocodigo.livros;
 
-import br.com.zupacademy.neto.casadocodigo.autor.Autor;
+import br.com.zupacademy.neto.casadocodigo.autor.DetalhesAutorResponse;
 import br.com.zupacademy.neto.casadocodigo.categorias.Categoria;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
@@ -8,8 +8,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class DetalhesLivroDTO {
-    
-    private final Integer id;
     
     private final String titulo;
     
@@ -25,14 +23,13 @@ public class DetalhesLivroDTO {
 
     private final Categoria categoria;
 
-    private final Autor autor;
+    private final DetalhesAutorResponse autor;
 
     private final String isbn;
 
     @JsonCreator
     public DetalhesLivroDTO(Livro livro) {
-        this.id = livro.getId();
-        this.autor = livro.getAutor();
+        this.autor = new DetalhesAutorResponse(livro.getAutor());
         this.categoria = livro.getCategoria();
         this.titulo = livro.getTitulo();
         this.resumo = livro.getResumo();
@@ -41,10 +38,6 @@ public class DetalhesLivroDTO {
         this.numeroPaginas = livro.getNumeroPaginas();
         this.dataPublicacao = livro.getDataPublicacao();
         this.isbn = livro.getIsbn();
-    }
-
-    public Integer getId() {
-        return id;
     }
 
     public String getTitulo() {
@@ -67,19 +60,12 @@ public class DetalhesLivroDTO {
         return numeroPaginas;
     }
 
-    public LocalDate getDataPublicacao() {
-        return dataPublicacao;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
 
     public String getIsbn() {
         return isbn;
     }
 
-    public Autor getAutor() {
+    public DetalhesAutorResponse getAutor() {
         return autor;
     }
 }

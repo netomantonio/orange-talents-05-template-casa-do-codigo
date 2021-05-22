@@ -1,12 +1,11 @@
 package br.com.zupacademy.neto.casadocodigo.livros;
 
-import br.com.zupacademy.neto.casadocodigo.ExisteID;
-import br.com.zupacademy.neto.casadocodigo.Unique;
+import br.com.zupacademy.neto.casadocodigo.validacoes.ExisteID;
+import br.com.zupacademy.neto.casadocodigo.validacoes.Unique;
 import br.com.zupacademy.neto.casadocodigo.autor.Autor;
 import br.com.zupacademy.neto.casadocodigo.categorias.Categoria;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.hibernate.validator.constraints.ISBN;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
